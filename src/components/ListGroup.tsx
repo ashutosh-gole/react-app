@@ -1,17 +1,27 @@
-import { Fragment } from "react/jsx-runtime";
-
 function ListGroup() {
+  const states = [
+    "Maharashtra",
+    "Goa",
+    "Karnataka",
+    "Uttar Pradesh",
+    "Gujrat",
+    "Madhy Pradesh",
+    "Rajsthan",
+    "Odisa",
+    "Uttarakhand",
+  ];
+
   return (
-    <Fragment>
-      <h1>List Group</h1>
+    <>
+      <h1>List Group - States:</h1>
       <ul className="list-group">
-        <li className="list-group-item">An item</li>
-        <li className="list-group-item">A second item</li>
-        <li className="list-group-item">A third item</li>
-        <li className="list-group-item">A fourth item</li>
-        <li className="list-group-item">And a fifth one</li>
+        {states.map((state, index) => (
+          <li className="list-group-item" key={index}>
+            {state}
+          </li>
+        ))}
       </ul>
-    </Fragment>
+    </>
   );
 }
 
