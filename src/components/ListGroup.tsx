@@ -1,32 +1,15 @@
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
+interface Props {
+  states: Array<string>;
+  heading?: string;
+}
 
-function ListGroup() {
-  let states = [
-    "Maharashtra",
-    "Goa",
-    "Karnataka",
-    "Uttar Pradesh",
-    "Gujrat",
-    "Madhy Pradesh",
-    "Rajsthan",
-    "Odisa",
-    "Uttarakhand",
-  ];
-  // let selectedIndex = -1;
-  // const arr = useState(-1);
-  // arr[0] ==> variable selectedIndex
-  // arr[1] ==> updated function
-
+function ListGroup({ states, heading }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  // const [name, setName] = useState("");
-
-  // event handler
-  const handleClick = (event: MouseEvent) =>
-    console.log("index, state, event === ", event);
 
   return (
     <>
-      <h1>List Group - States:</h1>
+      <h1>{heading}</h1>
 
       {states.length ? (
         <ul className="list-group">
