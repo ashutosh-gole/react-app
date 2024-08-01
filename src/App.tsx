@@ -1,6 +1,4 @@
 import ListGroup from "./components/ListGroup";
-// import ListGroupUsingFragment from "./components/ListGroupUsingFragment";
-// import EventHandlerEx from "./components/EventHandlerEx";
 
 function App() {
   let states = [
@@ -14,11 +12,27 @@ function App() {
     "Odisa",
     "Uttarakhand",
   ];
-  let heading = "List Group - States - Passing Data Via Props";
+  let heading = "List Group - States - Passing Functions Via Props";
+
+  const handleSelectItem = (index: number, state: string) => {
+    console.log("CHILD TO PARENT index, state===== ", index, state);
+  };
 
   return (
     <>
-      <ListGroup states={states} heading={heading} />
+      <h1>CHILD TO PARENT METHOD 1</h1>
+      <ListGroup
+        states={states}
+        heading={heading}
+        onSelectItem={(index, state) => handleSelectItem(index, state)}
+      />
+
+      <h1>CHILD TO PARENT METHOD 2</h1>
+      <ListGroup
+        states={states}
+        heading={heading}
+        onSelectItem={handleSelectItem}
+      />
     </>
   );
 }
