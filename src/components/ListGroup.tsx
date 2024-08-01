@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+
 function ListGroup() {
   let states = [
     "Maharashtra",
@@ -11,6 +13,10 @@ function ListGroup() {
     "Uttarakhand",
   ];
 
+  // event handler
+  const handleClick = (event: MouseEvent) =>
+    console.log("index, state, event === ", event);
+
   return (
     <>
       <h1>List Group - States:</h1>
@@ -18,13 +24,7 @@ function ListGroup() {
       {states.length ? (
         <ul className="list-group">
           {states.map((state, index) => (
-            <li
-              className="list-group-item"
-              key={index}
-              onClick={(event) =>
-                console.log("index, state, event === ", index, state, event)
-              }
-            >
+            <li className="list-group-item" key={index} onClick={handleClick}>
               {state}
             </li>
           ))}
