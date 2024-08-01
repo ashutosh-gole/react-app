@@ -15,10 +15,14 @@ function EventHandlerEx() {
 
   // event handler
   const handleClick1 = (index: number, state: string, event: MouseEvent) =>
-    console.log("index, state, event === ", index, state, event);
+    console.log("handleClick1: index, state, event === ", index, state, event);
 
   const handleClick2 = (index: number, state: string) =>
-    console.log("index, state === ", index, state);
+    console.log("handleClick2: index, state === ", index, state);
+
+  function handleClick3(event: MouseEvent) {
+    console.log("handleClick3: index, state, event === ", event);
+  }
 
   return (
     <>
@@ -49,6 +53,24 @@ function EventHandlerEx() {
               className="list-group-item"
               key={index}
               onClick={() => handleClick2(index, state)}
+            >
+              {state}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>States not found</p>
+      )}
+
+      <h1>Event Handler 3</h1>
+
+      {states.length ? (
+        <ul className="list-group">
+          {states.map((state, index) => (
+            <li
+              className="list-group-item"
+              key={index}
+              onClick={(event) => handleClick3(event)}
             >
               {state}
             </li>
