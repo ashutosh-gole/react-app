@@ -1,26 +1,23 @@
+import { useState } from "react";
+import Alert from "./components/Alert";
 import Button from "./components/Button";
 
 function App() {
-  const handleButtonClick = () => {
-    console.log("CHILD TO PARENT: Button Click");
-  };
+  const [alertVisible, setAlertVisible] = useState(false);
 
   return (
     <>
-      {/* method 1 if you are property key name as "children" then no need to  pass key name also in Button component */}
-      <Button onButtonClick={handleButtonClick}>Button 1</Button>
-      <br />
-      <br />
-      {/* method 2 */}
+      {alertVisible && (
+        <Alert
+          children="Button clicked successfully"
+          onCloseClick={() => setAlertVisible(false)}
+        />
+      )}
       <Button
         color="success"
-        children="Button 2"
-        onButtonClick={handleButtonClick}
+        children="Button"
+        onButtonClick={() => setAlertVisible(true)}
       />
-
-      <br />
-      <br />
-      <Button color="link" children="Link" onButtonClick={handleButtonClick} />
     </>
   );
 }
