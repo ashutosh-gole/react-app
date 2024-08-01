@@ -1,12 +1,26 @@
-import Alert from "./components/Alert";
+import Button from "./components/Button";
 
 function App() {
+  const handleButtonClick = () => {
+    console.log("CHILD TO PARENT: Button Click");
+  };
+
   return (
     <>
-      <Alert>
-        <b>Method 1</b>
-      </Alert>
-      <Alert children={<b>Method 2</b>}></Alert>
+      {/* method 1 if you are property key name as "children" then no need to  pass key name also in Button component */}
+      <Button onButtonClick={handleButtonClick}>Button 1</Button>
+      <br />
+      <br />
+      {/* method 2 */}
+      <Button
+        color="success"
+        children="Button 2"
+        onButtonClick={handleButtonClick}
+      />
+
+      <br />
+      <br />
+      <Button color="link" children="Link" onButtonClick={handleButtonClick} />
     </>
   );
 }
