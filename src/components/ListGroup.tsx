@@ -1,5 +1,5 @@
 function ListGroup() {
-  const states = [
+  let states = [
     "Maharashtra",
     "Goa",
     "Karnataka",
@@ -14,13 +14,24 @@ function ListGroup() {
   return (
     <>
       <h1>List Group - States:</h1>
-      <ul className="list-group">
-        {states.map((state, index) => (
-          <li className="list-group-item" key={index}>
-            {state}
-          </li>
-        ))}
-      </ul>
+
+      {states.length ? (
+        <ul className="list-group">
+          {states.map((state, index) => (
+            <li
+              className="list-group-item"
+              key={index}
+              onClick={(event) =>
+                console.log("index, state, event === ", index, state, event)
+              }
+            >
+              {state}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>States not found</p>
+      )}
     </>
   );
 }
