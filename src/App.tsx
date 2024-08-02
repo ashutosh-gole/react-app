@@ -1,4 +1,5 @@
 import ListGroup from "./components/ListGroup/ListGroup";
+import "./App.css";
 
 function App() {
   let states = [

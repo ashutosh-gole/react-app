@@ -3,7 +3,8 @@
   padding-left: 0;
 }
 
-.list-group-item {
+/* CamelCase convetion */
+.listGroupIitem {
   background-color: cornsilk;
   border: 1px solid gray;
   margin: 12px;
