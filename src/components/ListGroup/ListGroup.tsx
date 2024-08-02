@@ -15,7 +15,7 @@ function ListGroup({ states, heading, onSelectItem }: Props) {
       <h1>{heading}</h1>
 
       {states.length ? (
-        <ul className={styles["list-group"]}>
+        <ul style={{ listStyle: "disc", paddingLeft: 0 }}>
           {states.map((state, index) => (
             <li
               className={
