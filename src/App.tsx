@@ -1,20 +1,14 @@
 import "./App.css";
-import { AiFillAlipayCircle } from "react-icons/ai";
-import { FaNetworkWired } from "react-icons/fa";
-import { Bs9CircleFill } from "react-icons/bs";
+import Like from "./components/Like";
 
 function App() {
+  const handlerIconClick = (status: boolean) => {
+    console.log("CHILD TO PARENT handlerIconClick status ===== ", status);
+  };
+
   return (
     <>
-      <AiFillAlipayCircle />
-      <br />
-      <br />
-      <FaNetworkWired color="orange" size={81} />
-      <br />
-      <br />
-      <Bs9CircleFill color="pink" size={54} />
-      <br />
-      <br />
+      <Like onIconClick={handlerIconClick} />
     </>
   );
 }
