@@ -1,22 +1,29 @@
-import { useState } from "react";
-import Alert from "./components/Alert";
-import Button from "./components/Button";
+import ListGroup from "./components/ListGroup/ListGroup";
 
 function App() {
-  const [alertVisible, setAlertVisible] = useState(false);
+  let states = [
+    "Maharashtra",
+    "Goa",
+    "Karnataka",
+    "Uttar Pradesh",
+    "Gujrat",
+    "Madhy Pradesh",
+    "Rajsthan",
+    "Odisa",
+    "Uttarakhand",
+  ];
+  let heading = "List Group - States - Passing Functions Via Props";
+
+  const handleSelectItem = (index: number, state: string) => {
+    console.log("CHILD TO PARENT index, state===== ", index, state);
+  };
 
   return (
     <>
-      {alertVisible && (
-        <Alert
-          children="Button clicked successfully"
-          onCloseClick={() => setAlertVisible(false)}
-        />
-      )}
-      <Button
-        color="success"
-        children="Button"
-        onButtonClick={() => setAlertVisible(true)}
+      <ListGroup
+        states={states}
+        heading={heading}
+        onSelectItem={handleSelectItem}
       />
     </>
   );
