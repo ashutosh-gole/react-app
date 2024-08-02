@@ -1,30 +1,26 @@
-import ListGroup from "./components/ListGroup/ListGroup";
 import "./App.css";
+import Button from "./components/Button/Button";
 
 function App() {
-  let states = [
-    "Maharashtra",
-    "Goa",
-    "Karnataka",
-    "Uttar Pradesh",
-    "Gujrat",
-    "Madhy Pradesh",
-    "Rajsthan",
-    "Odisa",
-    "Uttarakhand",
-  ];
-  let heading = "List Group - States - Passing Functions Via Props";
-
-  const handleSelectItem = (index: number, state: string) => {
-    console.log("CHILD TO PARENT index, state===== ", index, state);
+  const handleButtonClick = () => {
+    console.log("CHILD TO PARENT BUTTON CLICK===== ");
   };
 
   return (
     <>
-      <ListGroup
-        states={states}
-        heading={heading}
-        onSelectItem={handleSelectItem}
+      <Button
+        children="Button 1"
+        color="primary"
+        onButtonClick={handleButtonClick}
+      />
+
+      <br />
+      <br />
+
+      <Button
+        children="Button 2"
+        color="link"
+        onButtonClick={handleButtonClick}
       />
     </>
   );
