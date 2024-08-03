@@ -1,14 +1,10 @@
 import "./App.css";
-import Like from "./components/Like";
+import UpdatingState from "./components/UpdatingState/UpdatingState";
 
 function App() {
-  const handlerIconClick = (status: boolean) => {
-    console.log("CHILD TO PARENT handlerIconClick status ===== ", status);
-  };
-
   return (
     <>
-      <Like onIconClick={handlerIconClick} />
+      <UpdatingState />
     </>
   );
 }
