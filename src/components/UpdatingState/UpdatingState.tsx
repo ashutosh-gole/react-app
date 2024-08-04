@@ -1,49 +1,29 @@
 import { useState } from "react";
 
 const UpdatingState = () => {
-  const [tags, setTags] = useState(["exciting", "cheerful"]);
+  const [bugs, setBugs] = useState([
+    { id: 1, title: "Bug 1", fixed: false },
+    { id: 2, title: "Bug 2", fixed: false },
+    { id: 3, title: "Bug 3", fixed: false },
+  ]);
 
   // for add
-  const handleAdd = () => {
-    setTags([...tags, "happy"]);
-  };
-
-  // for remove
-  const handleRemove = () => {
-    setTags(tags.filter((tag) => tag !== "happy"));
-  };
-
-  // for update
-  const handleUpdate = () => {
-    setTags(tags.map((tag) => (tag === "happy" ? "happines" : tag)));
+  const handleClick = () => {
+    setBugs(bugs.map((bug) => (bug.id === 2 ? { ...bug, fixed: true } : bug)));
   };
 
   return (
     <>
-      <h1>Updating react states: updating array</h1>
-      <h5>Tags array: {JSON.stringify(tags)}</h5>
+      <h1>
+        Updating react states: updating array of objects - update single object
+      </h1>
+      <h5>Bugs array: {JSON.stringify(bugs)}</h5>
       <button
         type="button"
         className={"btn btn-primary"}
-        onClick={() => handleAdd()}
+        onClick={() => handleClick()}
       >
-        Array - add
-      </button>
-      &nbsp;&nbsp;
-      <button
-        type="button"
-        className={"btn btn-primary"}
-        onClick={() => handleRemove()}
-      >
-        Array - remove
-      </button>
-      &nbsp;&nbsp;
-      <button
-        type="button"
-        className={"btn btn-primary"}
-        onClick={() => handleUpdate()}
-      >
-        Array - update
+        Update Array Of Object
       </button>
     </>
   );
