@@ -16,7 +16,7 @@ const UpdatingState = () => {
   return (
     <>
       <h1>Updating react states: updating object</h1>
-      <h5>Player object: {JSON.stringify(drink)}</h5>
+      <h5>Drink object: {JSON.stringify(drink)}</h5>
       <button
         type="button"
         className={"btn btn-primary"}
