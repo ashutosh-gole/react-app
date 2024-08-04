@@ -1,28 +1,31 @@
 import { useState } from "react";
 
 const UpdatingState = () => {
-  const [drink, setDrink] = useState({
-    title: "Americano",
-    price: 5,
+  const [customer, setCustomer] = useState({
+    name: "John",
+    address: {
+      city: "San Francisco",
+      zipcode: 94111,
+    },
   });
 
   const handleClick1 = () => {
-    setDrink({
-      ...drink,
-      price: 10,
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, city: "Pune" },
     });
   };
 
   return (
     <>
-      <h1>Updating react states: updating object</h1>
-      <h5>Player object: {JSON.stringify(drink)}</h5>
+      <h1>Updating react states: updating nested object</h1>
+      <h5>Customer object: {JSON.stringify(customer)}</h5>
       <button
         type="button"
         className={"btn btn-primary"}
         onClick={() => handleClick1()}
       >
-        Update Object
+        Update Nested Object
       </button>
     </>
   );
