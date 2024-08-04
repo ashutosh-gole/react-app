@@ -12,8 +12,8 @@ const UpdatingState = () => {
     // setBugs(bugs.map((bug) => (bug.id === 2 ? { ...bug, fixed: true } : bug)));
 
     setBugs(
-      produce((draft) => {
-        const bug = draft.find((bug) => bug.id === 2);
+      produce((bugs) => {
+        const bug = bugs.find((bug) => bug.id === 2);
         if (bug) bug.fixed = true;
       })
     );
@@ -23,6 +23,7 @@ const UpdatingState = () => {
     <>
       <h1>
         Updating react states: updating array of objects - update single object
+        - using immer package
       </h1>
       <h5>Bugs array: {JSON.stringify(bugs)}</h5>
       <button
