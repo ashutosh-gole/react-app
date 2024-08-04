@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { produce } from "immer";
 
 const UpdatingState = () => {
   const [bugs, setBugs] = useState([
@@ -7,9 +8,15 @@ const UpdatingState = () => {
     { id: 3, title: "Bug 3", fixed: false },
   ]);
 
-  // for add
   const handleClick = () => {
-    setBugs(bugs.map((bug) => (bug.id === 2 ? { ...bug, fixed: true } : bug)));
+    // setBugs(bugs.map((bug) => (bug.id === 2 ? { ...bug, fixed: true } : bug)));
+
+    setBugs(
+      produce((draft) => {
+        const bug = draft.find((bug) => bug.id === 2);
+        if (bug) bug.fixed = true;
+      })
+    );
   };
 
   return (
@@ -23,7 +30,7 @@ const UpdatingState = () => {
         className={"btn btn-primary"}
         onClick={() => handleClick()}
       >
-        Update Array Of Object
+        Update Array Of Object Using immer
       </button>
     </>
   );
