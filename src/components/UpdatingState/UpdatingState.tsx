@@ -1,83 +1,49 @@
 import { useState } from "react";
 
 const UpdatingState = () => {
-  const [game, setGame] = useState({
-    id: 1,
-    player: {
-      name: "john",
-    },
-  });
+  const [tags, setTags] = useState(["exciting", "cheerful"]);
 
-  const [pizza, setPizza] = useState({
-    name: "Spice Pepperoni",
-    toppings: ["Mushroom"],
-  });
-
-  const [cart, setCart] = useState({
-    discount: 1,
-    items: [
-      { id: 1, title: "Product 1", quantity: 1 },
-      { id: 2, title: "Product 2", quantity: 1 },
-    ],
-  });
-
-  const handleClick1 = () => {
-    setGame({
-      ...game,
-      player: { ...game.player, name: "mosh" },
-    });
+  // for add
+  const handleAdd = () => {
+    setTags([...tags, "happy"]);
   };
 
-  const handleClick2 = () => {
-    setPizza({
-      ...pizza,
-      toppings: [...pizza.toppings, "Cheese"],
-    });
+  // for remove
+  const handleRemove = () => {
+    setTags(tags.filter((tag) => tag !== "happy"));
   };
 
-  const handleClick3 = () => {
-    setCart({
-      ...cart,
-      items: cart.items.map((item) =>
-        item.id === 1 ? { ...item, quantity: item.quantity + 1 } : item
-      ),
-    });
+  // for update
+  const handleUpdate = () => {
+    setTags(tags.map((tag) => (tag === "happy" ? "happines" : tag)));
   };
 
   return (
     <>
-      <h1>Updating react states: Exercise 1 - Object</h1>
-      <h5>Player object: {JSON.stringify(game)}</h5>
+      <h1>Updating react states: updating array</h1>
+      <h5>Tags array: {JSON.stringify(tags)}</h5>
       <button
         type="button"
         className={"btn btn-primary"}
-        onClick={() => handleClick1()}
+        onClick={() => handleAdd()}
       >
-        Update Object
+        Array - add
       </button>
-
-      <hr />
-
-      <h1>Updating react states: Exercise 2 - Array</h1>
-      <h5>Pizza object: {JSON.stringify(pizza)}</h5>
+      &nbsp;&nbsp;
       <button
         type="button"
         className={"btn btn-primary"}
-        onClick={() => handleClick2()}
+        onClick={() => handleRemove()}
       >
-        Update Array
+        Array - remove
       </button>
-
-      <hr />
-
-      <h1>Updating react states: Exercise 2 - Object + Array</h1>
-      <h5>Cart object: {JSON.stringify(cart)}</h5>
+      &nbsp;&nbsp;
       <button
         type="button"
         className={"btn btn-primary"}
-        onClick={() => handleClick3()}
+        onClick={() => handleUpdate()}
       >
-        Update Object + Array
+        Array - update
       </button>
     </>
   );
