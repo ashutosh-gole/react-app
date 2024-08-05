@@ -1,17 +1,19 @@
-import { FormEvent, useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 
 const Form = () => {
-  const [person, setPerson] = useState({ name: "Ashutosh G", age: 28 });
+  const { register, handleSubmit } = useForm();
 
-  const handelSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    console.log("person === ", person);
+  // your form logic
+  const submitClick = (data: FieldValues) => {
+    console.log("data === ", data);
   };
 
   return (
     <>
-      <form onSubmit={handelSubmit}>
-        <h1>React Form</h1>
+      <form onSubmit={handleSubmit((data) => submitClick(data))}>
+        <h1>
+          React Form: manage form with <i>react-hook-form</i> library
+        </h1>
 
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -21,10 +23,7 @@ const Form = () => {
             type="text"
             className="form-control"
             id="name"
-            value={person.name}
-            onChange={(event) =>
-              setPerson({ ...person, name: event.target.value })
-            }
+            {...register("name")}
           />
         </div>
 
@@ -36,10 +35,7 @@ const Form = () => {
             type="number"
             className="form-control"
             id="age"
-            value={person.age}
-            onChange={(event) =>
-              setPerson({ ...person, age: parseInt(event.target.value) })
-            }
+            {...register("id")}
           />
         </div>
 
