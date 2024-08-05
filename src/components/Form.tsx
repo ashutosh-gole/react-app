@@ -1,7 +1,17 @@
 import { FieldValues, useForm } from "react-hook-form";
 
+interface FormData {
+  name: string;
+  age: number;
+}
+
 const Form = () => {
-  const { register, handleSubmit } = useForm();
+  // nested destructuring in js/ts
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
   // your form logic
   const submitClick = (data: FieldValues) => {
@@ -23,8 +33,16 @@ const Form = () => {
             type="text"
             className="form-control"
             id="name"
-            {...register("name")}
+            {...register("name", { required: true, minLength: 3 })}
           />
+          {errors.name?.type === "required" && (
+            <p className="pt-2 text-danger">The name field is required</p>
+          )}
+          {errors.name?.type === "minLength" && (
+            <p className="pt-2 text-danger">
+              The name must be at least 3 characters
+            </p>
+          )}
         </div>
 
         <div className="mb-3">
@@ -35,8 +53,11 @@ const Form = () => {
             type="number"
             className="form-control"
             id="age"
-            {...register("id")}
+            {...register("age", { required: true, min: -1 })}
           />
+          {errors.age?.type === "required" && (
+            <p className="pt-2 text-danger">The age field is required</p>
+          )}
         </div>
 
         <button type="submit" className="btn btn-primary">
