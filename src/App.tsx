@@ -1,20 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 function App() {
-  const ref = useRef<HTMLInputElement>(null);
-
-  // after renderer => we use useEffect(() => {}) to make component pure
-  useEffect(() => {
-    if (ref.current) ref.current.focus();
-  });
+  const connect = () => console.log("connecting");
+  const disconnect = () => console.log("disconnecting");
 
   useEffect(() => {
-    document.title = "React App";
+    connect();
+
+    return disconnect();
   });
 
   return (
     <>
-      <input ref={ref} type="text" className="form-control"></input>
+      <div>Effect clean up</div>
     </>
   );
 }
