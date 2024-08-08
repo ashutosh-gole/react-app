@@ -21,7 +21,9 @@ function App() {
 
   return (
     <>
-      <h1>Fetch data using axios library</h1>
+      <h1>
+        Fetch data using axios library - with the help of <b>promises</b>
+      </h1>
 
       <ul>
         {users.map((user) => (
