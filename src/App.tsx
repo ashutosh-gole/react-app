@@ -99,10 +99,33 @@ function App() {
     // current state, as it avoids potential bugs from stale state.
   };
 
+  const updateUser = (user: User) => {
+    // backup of original users
+    const originalUsers = [...users];
+    const updatedUser = { ...user, name: user.name.toUpperCase() };
+
+    setUsers((prevUsers) =>
+      prevUsers.map((prevUser) =>
+        prevUser.id == user.id ? updatedUser : prevUser
+      )
+    );
+
+    axios
+      .patch(
+        `https://jsonplaceholder.typicode.com/users/${user.id}`,
+        updatedUser
+      )
+      .catch((err) => {
+        setError(err.message);
+        // revert optimistic update if the request fails
+        setUsers(originalUsers);
+      });
+  };
+
   return (
     <>
       <div className="d-flex justify-content-center">
-        <h1>USERS - axios library - delete operation</h1>
+        <h1>USERS - axios library - update operation</h1>
       </div>
 
       {error && <p className="text-danger">{error}</p>}
@@ -115,7 +138,7 @@ function App() {
 
       <div className="d-flex justify-content-end mb-3">
         <button className="btn btn-primary" type="button" onClick={addUser}>
-          Add User
+          Add
         </button>
       </div>
 
@@ -139,10 +162,17 @@ function App() {
               <td>{user.phone}</td>
               <td>
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-danger mx-4"
                   onClick={() => deleteUser(user)}
                 >
                   Delete
+                </button>
+
+                <button
+                  className="btn btn-success"
+                  onClick={() => updateUser(user)}
+                >
+                  Update
                 </button>
               </td>
             </tr>
