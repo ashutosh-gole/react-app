@@ -45,7 +45,9 @@ function App() {
 
   return (
     <>
-      <h1>Fetch data using axios library</h1>
+      <h1>
+        Fetch data using axios library - with the help of <b>async and await</b>
+      </h1>
 
       {error && <p className="text-danger">{error}</p>}
 
