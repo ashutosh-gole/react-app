@@ -11,17 +11,36 @@ function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users2")
-      .then((res) => {
+    // using async and await
+    const fecthUsers = async () => {
+      try {
+        const res = await axios.get<User[]>(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+
         console.log("1 res === ", res);
         console.log("2 users === ", users);
         setUsers(res.data);
-      })
-      .catch((err: AxiosError) => {
+      } catch (err) {
         console.log("err ==== ", err);
-        setError(err.message);
-      });
+        setError((err as AxiosError).message);
+      }
+    };
+
+    fecthUsers();
+
+    // using promise
+    // axios
+    //   .get<User[]>("https://jsonplaceholder.typicode.com/users2")
+    //   .then((res) => {
+    //     console.log("1 res === ", res);
+    //     console.log("2 users === ", users);
+    //     setUsers(res.data);
+    //   })
+    //   .catch((err: AxiosError) => {
+    //     console.log("err ==== ", err);
+    //     setError(err.message);
+    //   });
   }, []);
 
   return (
