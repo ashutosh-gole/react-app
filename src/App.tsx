@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 interface User {
   id: number;
   name: string;
+  email: string;
+  phone: string;
 }
 
 function App() {
@@ -28,16 +30,28 @@ function App() {
         setError(err.message);
         setIsLoading(false);
       });
-    // .finally(() => setIsLoading(false));
-    // in strict mode finally() block not executed so we added 2 times setIsLoading(false); in our code
-    // best practice is to add setIsLoading(false); code in finally block
 
     return () => controller.abort();
   }, []);
 
+  const deleteUser = (user: User) => {
+    // backup of original users
+    const originalUsers = [...users];
+
+    setUsers(users.filter((userData) => userData.id != user.id));
+
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/users/${user.id}`)
+      .catch((err) => {
+        setError(err.message);
+        // if error occur set to original users
+        setUsers(originalUsers);
+      });
+  };
+
   return (
     <>
-      <h1>Fetch data using axios library</h1>
+      <h1>USERS - axios library - delete operation</h1>
 
       {error && <p className="text-danger">{error}</p>}
 
@@ -47,11 +61,36 @@ function App() {
         </div>
       )}
 
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <th>{user.id}</th>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.phone}</td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => deleteUser(user)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }
