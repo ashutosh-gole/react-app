@@ -16,9 +16,6 @@ function App() {
         console.log("1 res === ", res);
         console.log("2 users === ", users);
         setUsers(res.data);
-      })
-      .catch((error) => {
-        console.log("error === ", error);
       });
   }, []);
 
