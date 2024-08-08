@@ -1,4 +1,4 @@
-import apiClient, { AxiosError, CanceledError } from "./services/api-client";
+import { AxiosError, CanceledError } from "./services/api-client";
 import { useEffect, useState } from "react";
 import userService, { User } from "./services/user-service";
 
@@ -32,7 +32,7 @@ function App() {
 
     setUsers(users.filter((userData) => userData.id != user.id));
 
-    apiClient.delete(`/users/${user.id}`).catch((err) => {
+    userService.deleteUser(user.id).catch((err) => {
       setError(err.message);
       // if error occur set to original users
       setUsers(originalUsers);
@@ -56,8 +56,8 @@ function App() {
     // update the UI optimistically
     setUsers([newUser, ...users]);
 
-    apiClient
-      .post(`/users`, newUser)
+    userService
+      .addUser(newUser)
       .then(({ data: savedUser }) => {
         // savedUser is used as alias
         // replace the temporary user with the actual user from the response
@@ -100,7 +100,7 @@ function App() {
       )
     );
 
-    apiClient.patch(`/users/${user.id}`, updatedUser).catch((err) => {
+    userService.updateUser(updatedUser).catch((err) => {
       setError(err.message);
       // revert optimistic update if the request fails
       setUsers(originalUsers);
