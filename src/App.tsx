@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     setIsLoading(true);
 
-    const { request, cancel } = userService.getAllUsers();
+    const { request, cancel } = userService.getAll<User>();
 
     request
       .then((res) => {
@@ -32,7 +32,7 @@ function App() {
 
     setUsers(users.filter((userData) => userData.id != user.id));
 
-    userService.deleteUser(user.id).catch((err) => {
+    userService.delete(user.id).catch((err) => {
       setError(err.message);
       // if error occur set to original users
       setUsers(originalUsers);
@@ -57,7 +57,7 @@ function App() {
     setUsers([newUser, ...users]);
 
     userService
-      .addUser(newUser)
+      .add(newUser)
       .then(({ data: savedUser }) => {
         // savedUser is used as alias
         // replace the temporary user with the actual user from the response
@@ -100,7 +100,7 @@ function App() {
       )
     );
 
-    userService.updateUser(updatedUser).catch((err) => {
+    userService.update(updatedUser).catch((err) => {
       setError(err.message);
       // revert optimistic update if the request fails
       setUsers(originalUsers);
