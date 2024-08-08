@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, CanceledError } from "axios";
 import { useEffect, useState } from "react";
 
 interface User {
@@ -11,36 +11,24 @@ function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // using async and await
-    const fecthUsers = async () => {
-      try {
-        const res = await axios.get<User[]>(
-          "https://jsonplaceholder.typicode.com/users"
-        );
+    const controller = new AbortController();
 
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((res) => {
         console.log("1 res === ", res);
         console.log("2 users === ", users);
         setUsers(res.data);
-      } catch (err) {
+      })
+      .catch((err: AxiosError) => {
         console.log("err ==== ", err);
-        setError((err as AxiosError).message);
-      }
-    };
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+      });
 
-    fecthUsers();
-
-    // using promise
-    // axios
-    //   .get<User[]>("https://jsonplaceholder.typicode.com/users2")
-    //   .then((res) => {
-    //     console.log("1 res === ", res);
-    //     console.log("2 users === ", users);
-    //     setUsers(res.data);
-    //   })
-    //   .catch((err: AxiosError) => {
-    //     console.log("err ==== ", err);
-    //     setError(err.message);
-    //   });
+    return () => controller.abort();
   }, []);
 
   return (
