@@ -1,4 +1,4 @@
-import axios, { AxiosError, CanceledError } from "axios";
+import apiClient, { AxiosError, CanceledError } from "./services/api-client";
 import { useEffect, useState } from "react";
 
 interface User {
@@ -17,8 +17,8 @@ function App() {
     const controller = new AbortController();
 
     setIsLoading(true);
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+    apiClient
+      .get<User[]>("/users", {
         signal: controller.signal,
       })
       .then((res) => {
@@ -40,13 +40,11 @@ function App() {
 
     setUsers(users.filter((userData) => userData.id != user.id));
 
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/users/${user.id}`)
-      .catch((err) => {
-        setError(err.message);
-        // if error occur set to original users
-        setUsers(originalUsers);
-      });
+    apiClient.delete(`/users/${user.id}`).catch((err) => {
+      setError(err.message);
+      // if error occur set to original users
+      setUsers(originalUsers);
+    });
   };
 
   const addUser = () => {
@@ -66,8 +64,8 @@ function App() {
     // update the UI optimistically
     setUsers([newUser, ...users]);
 
-    axios
-      .post(`https://jsonplaceholder.typicode.com/users`, newUser)
+    apiClient
+      .post(`/users`, newUser)
       .then(({ data: savedUser }) => {
         // savedUser is used as alias
         // replace the temporary user with the actual user from the response
@@ -110,16 +108,11 @@ function App() {
       )
     );
 
-    axios
-      .patch(
-        `https://jsonplaceholder.typicode.com/users/${user.id}`,
-        updatedUser
-      )
-      .catch((err) => {
-        setError(err.message);
-        // revert optimistic update if the request fails
-        setUsers(originalUsers);
-      });
+    apiClient.patch(`/users/${user.id}`, updatedUser).catch((err) => {
+      setError(err.message);
+      // revert optimistic update if the request fails
+      setUsers(originalUsers);
+    });
   };
 
   return (
