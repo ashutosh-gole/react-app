@@ -110,7 +110,7 @@ function App() {
   return (
     <>
       <div className="d-flex justify-content-center">
-        <h1>USERS - axios library - update operation</h1>
+        <h1>Creating generic http service</h1>
       </div>
 
       {error && <p className="text-danger">{error}</p>}
