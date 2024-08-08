@@ -1,30 +1,8 @@
-import { AxiosError, CanceledError } from "./services/api-client";
-import { useEffect, useState } from "react";
 import userService, { User } from "./services/user-service";
+import useUsers from "./hooks/useUsers";
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-
-    const { request, cancel } = userService.getAll<User>();
-
-    request
-      .then((res) => {
-        setUsers(res.data);
-        setIsLoading(false);
-      })
-      .catch((err: AxiosError) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setIsLoading(false);
-      });
-
-    return () => cancel();
-  }, []);
+  const { users, error, isLoading, setUsers, setError } = useUsers();
 
   const deleteUser = (user: User) => {
     // backup of original users
@@ -76,17 +54,6 @@ function App() {
         // or
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== tempId));
       });
-
-    // Why Use prevUsers?
-    // Using prevUsers (as in the function-based update) is a safer approach because it guarantees
-    // you're working with the most current state. If you simply rely on the users array directly, there’s
-    // a slight chance you might be working with an outdated state, especially in situations with rapid or
-    // concurrent updates.
-
-    // Conclusion:
-    // prevUsers always holds the latest state at the moment the update function is executed.
-    // Using the function form of setUsers is recommended when the new state depends on the
-    // current state, as it avoids potential bugs from stale state.
   };
 
   const updateUser = (user: User) => {
@@ -110,7 +77,7 @@ function App() {
   return (
     <>
       <div className="d-flex justify-content-center">
-        <h1>USERS - axios library - update operation</h1>
+        <h1>Creating custom data fetching hook</h1>
       </div>
 
       {error && <p className="text-danger">{error}</p>}
