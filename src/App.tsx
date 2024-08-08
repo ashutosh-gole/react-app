@@ -71,6 +71,8 @@ function App() {
       .then(({ data: savedUser }) => {
         // savedUser is used as alias
         // replace the temporary user with the actual user from the response
+        // setUsers([savedUser, ...users]);
+        // or below is best approach
         setUsers((prevUsers) =>
           prevUsers.map((user) =>
             user.id === tempId ? { ...savedUser } : user
