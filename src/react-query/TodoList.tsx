@@ -14,7 +14,7 @@ const TodoList = () => {
       .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
       .then((res) => res.data);
 
-  const { data: todos } = useQuery({
+  const { data: todos, error } = useQuery<Todo[], Error>({
     queryKey: ["todos"],
     queryFn: fetchTodos,
   });
@@ -23,7 +23,7 @@ const TodoList = () => {
     <>
       <h1>Todos:</h1>
 
-      {/* {error && <p className="text-danger">{error}</p>} */}
+      {error && <p className="text-danger">{error.message}</p>}
 
       <ul>
         {todos?.map((todo) => (
