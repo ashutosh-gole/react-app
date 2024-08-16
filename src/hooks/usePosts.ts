@@ -9,14 +9,15 @@ interface Post {
 }
 
 const usePosts = (userId: number | undefined) => {
-    const fetchPosts = () =>
-        axios
-            .get<Post[]>("https://jsonplaceholder.typicode.com/posts", {
-                params: {
-                    userId
-                }
-            })
+    const fetchPosts = () => {
+        const config = {
+            params: userId && !isNaN(userId) ? { userId } : {},
+        };
+
+        return axios
+            .get<Post[]>("https://jsonplaceholder.typicode.com/posts", config)
             .then((res) => res.data);
+    }
 
     return useQuery<Post[], Error>({
         queryKey: userId ? ["users", userId, "posts"] : ["posts"],
