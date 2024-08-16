@@ -1,7 +1,9 @@
+import { useState } from "react";
 import usePosts from "../hooks/usePosts";
 
 const PostList = () => {
-  const { data, error, isLoading } = usePosts();
+  const [userId, setUserId] = useState<number>();
+  const { data, error, isLoading } = usePosts(userId);
 
   if (isLoading)
     return (
@@ -15,6 +17,17 @@ const PostList = () => {
   return (
     <>
       <h1>Posts:</h1>
+
+      <select
+        className="form-select mb-3"
+        value={userId}
+        onChange={(event) => setUserId(parseInt(event.target.value))}
+      >
+        <option value=""></option>
+        <option value="1">User 1</option>
+        <option value="2">User 2</option>
+        <option value="3">User 3</option>
+      </select>
 
       <ul className="list-group">
         {data?.map((post) => (
