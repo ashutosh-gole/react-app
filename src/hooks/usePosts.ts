@@ -8,10 +8,18 @@ interface Post {
     userId: number;
 }
 
-const usePosts = (userId: number | undefined) => {
+interface PostQuery {
+    page: number;
+    pageSize: number;
+}
+
+const usePosts = (query: PostQuery) => {
     const fetchPosts = () => {
         const config = {
-            params: userId && !isNaN(userId) ? { userId } : {},
+            params: {
+                _start: (query.page - 1) * query.pageSize,
+                _limit: query.pageSize
+            }
         };
 
         return axios
@@ -19,10 +27,15 @@ const usePosts = (userId: number | undefined) => {
             .then((res) => res.data);
     }
 
+    // show old data using key => placeholderData => return the previous data if available
     return useQuery<Post[], Error>({
-        queryKey: userId ? ["users", userId, "posts"] : ["posts"],
+        queryKey: ["posts", query],
         queryFn: fetchPosts,
-        staleTime: 1 * 60 * 1000, // 1m
+        staleTime: 1 * 60 * 1000,
+        placeholderData: (prevQueryData) => {
+            // return the previous data if available
+            return prevQueryData || [];
+        }
     });
 }
 
