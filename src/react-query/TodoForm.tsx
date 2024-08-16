@@ -8,7 +8,7 @@ function TodoForm() {
   const addTodo = useMutation<Todo, Error, Todo>({
     mutationFn: (todo: Todo) =>
       axios
-        .post<Todo>("https://jsonplaceholder.typicode.com/testtodos", todo)
+        .post<Todo>("https://jsonplaceholder.typicode.com/todos", todo)
         .then((res) => res.data),
     onSuccess: (savedTodo, newTodo) => {
       //   APPROACH 1: Invalidating the cache
@@ -27,9 +27,6 @@ function TodoForm() {
 
   return (
     <>
-      {addTodo.error && (
-        <div className="alert alert-danger">{addTodo.error.message}</div>
-      )}
       <form
         className="row mb-3"
         onSubmit={(event) => {
