@@ -8,7 +8,7 @@ function TodoForm() {
   const addTodo = useMutation<Todo, Error, Todo>({
     mutationFn: (todo: Todo) =>
       axios
-        .post<Todo>("https://jsonplaceholder.typicode.com/testtodos", todo)
+        .post<Todo>("https://jsonplaceholder.typicode.com/todos", todo)
         .then((res) => res.data),
     onSuccess: (savedTodo, newTodo) => {
       //   APPROACH 1: Invalidating the cache
@@ -21,6 +21,8 @@ function TodoForm() {
         savedTodo,
         ...(todos || []),
       ]);
+
+      if (ref.current) ref.current.value = "";
     },
   });
   const ref = useRef<HTMLInputElement>(null);
@@ -50,7 +52,9 @@ function TodoForm() {
           <input ref={ref} type="text" className="form-control" />
         </div>
         <div className="col">
-          <button className="btn btn-primary">Add</button>
+          <button className="btn btn-primary" disabled={addTodo.isPending}>
+            {addTodo.isPending ? "...Adding" : "Add"}
+          </button>
         </div>
       </form>
     </>
