@@ -34,9 +34,7 @@ function TodoForm() {
         </div>
 
         <div className="col">
-          <button className="btn btn-primary" disabled={addTodo.isPending}>
-            {addTodo.isPending ? "...Adding" : "Add"}
-          </button>
+          <button className="btn btn-primary">Add </button>
         </div>
       </form>
     </>
