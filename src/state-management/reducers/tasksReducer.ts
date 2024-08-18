@@ -15,7 +15,7 @@ interface DeleteTask {
 
 type TaskAction = AddTask | DeleteTask;
 
-const tasksReducers = (tasks: Task[], action: TaskAction): Task[] => {
+const tasksReducer = (tasks: Task[], action: TaskAction): Task[] => {
 
     switch (action.type) {
         case "ADD":
@@ -29,4 +29,4 @@ const tasksReducers = (tasks: Task[], action: TaskAction): Task[] => {
     }
 }
 
-export default tasksReducers;
+export default tasksReducer;
