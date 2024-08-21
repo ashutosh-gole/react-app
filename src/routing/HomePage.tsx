@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+  throw new Error("Testing - routing handling error - Something failed");
+
   return (
     <>
       <h1>Homepage </h1>

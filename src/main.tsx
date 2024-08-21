@@ -5,7 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
-import router from "./routing/route.tsx";
+import router from "./routing/routes.tsx";
 
 // global custom query settings or we can direct specify in custom query hook
 // const queryClient = new QueryClient({
