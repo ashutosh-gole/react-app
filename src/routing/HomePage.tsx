@@ -1,11 +1,17 @@
+import { Link } from "react-router-dom";
+
 const HomePage = () => {
   return (
     <>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt,
-        mollitia!
-      </p>
-      <a href="/users">Users</a>
+      <h1>Homepage </h1>
+      <div className="grid gap-3">
+        <div>
+          <Link to="/users">Users</Link>
+        </div>
+        <div>
+          <Link to="/contact">Contact</Link>
+        </div>
+      </div>
     </>
   );
 };
