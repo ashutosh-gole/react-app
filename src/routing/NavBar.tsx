@@ -13,7 +13,16 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/" className="nav-link">
+              {/* <NavLink to="/" className="nav-link">
+                Home
+              </NavLink> */}
+              {/* manual active class adding */}
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "active nav-link" : "nav-link"
+                }
+              >
                 Home
               </NavLink>
             </li>
